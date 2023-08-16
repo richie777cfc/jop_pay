@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" 
+    xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-upi" version="1.0.4">
+    <name>UPI</name>
+
+    <description>This Plugin allows you receive payment via UPI.</description>
+
+    <author>Rachit Gupta</author>
+
+    <license>MIT</license>
+
+    <keywords>cordova, plugin, UPI, NPCI, Mobile</keywords>
+
+    <repo>https://github.com/richie777cfc/jop_pay.git</repo>
+
+    <issue>https://github.com/richie777cfc/jop_pay/issues</issue>
+
+    <js-module src="www/upi.js" name="UPI">
+        <clobbers target="window.UPI" />
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="UPIPlugin">
+                <param name="android-package" value="com.cordova.upi.UPIPlugin" />
+                <param name="onload" value="true"/>
+            </feature>
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <receiver android:name="com.cordova.upi.ApplicationSelectorReceiver"/>
+        </config-file>
+        <source-file src="src/android/UPIPlugin.java" target-dir="src/com/cordova/upi"/>
+        <source-file src="src/android/ApplicationSelectorReceiver.java" target-dir="src/com/cordova/upi"/>
+    </platform>
+
+    <!-- ios -->
+    <platform name="ios">
+        <plugins-plist key="AppVersion" string="AppVersion" />
+
+        <config-file target="config.xml" parent="/*">
+            <feature name="AppVersion">
+                <param name="ios-package" value="AppVersion" />
+            </feature>
+        </config-file>
+
+        <header-file src="src/ios/AppVersion.h" />
+        <source-file src="src/ios/AppVersion.m" />
+    </platform>
+</plugin>

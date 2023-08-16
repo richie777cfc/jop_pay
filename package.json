@@ -1,0 +1,28 @@
+{
+  "name": "cordova-plugin-upi",
+  "version": "1.0.4",
+  "description": "This Plugin allows you receive payment via UPI.",
+  "main": "www/upi.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/richie777cfc/jop_pay.git"
+  },
+  "keywords": [
+    "upi",
+    "cordova",
+    "mobile",
+    "npci",
+    "phonegap",
+    "plugin"
+  ],
+  "platform": ["android"],
+  "author": "Rachit Gupta",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/richie777cfc/jop_pay/issues"
+  },
+  "homepage": "https://github.com/richie777cfc/jop_pay/blob/master/README.md"
+}
