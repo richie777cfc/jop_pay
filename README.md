@@ -92,6 +92,7 @@ browser.addEventListener('message', messCalls); //Event listener for messages.
 function messCalls(params) {
   if (params.data.eventtype && params.data.eventtype == "webjs") {
     eval(params.data.type + "()");
+    //if there are params then pass the same to function.
   }
 }
 
@@ -118,7 +119,7 @@ function getPspAppsList() {
 // Sample request format which will need to be written in inappbrowser url.
 // eventtype will be webjs which client end needs to read for function execution
 function getPspAppsList() {
-  var messageObj = {eventtype: "webjs", type: "getPspAppsList"};
+  var messageObj = {eventtype: "webjs", type: "getPspAppsList", params: ""};
   var stringifiedMessageObj = JSON.stringify(messageObj);
   window.webkit.messageHandlers.cordova_iab.postMessage(stringifiedMessageObj);
 }
