@@ -49,6 +49,8 @@ launchPspAppForUpiPaymentFailure = function(err) {
 launchPspAppForUpiPayment(paymentstring);
 ```
 
+### Responses:
+
 Sample response of successful payment
 ```json
 {
@@ -78,8 +80,9 @@ Sample response of failure payment
 }
 ```
 
+### InAppBrowser integration:
 
-Code for Payment with InAppBrowser
+* Integration with InAppBrowser
 ```js
 // Code for opening the InAppBrowser. Use below options. URL to be replaced with relevant URL.
 var options = "closebuttoncolor=#000000,lefttoright=yes,hideurlbar=yes,fullscreen=yes,hardwareback=no,toolbarcolor=#145a7b,zoom=no,useWideViewPort=no,hidenavigationbuttons=yes,footer=no,message=Hello,toolbar=no,location=no";
@@ -111,7 +114,7 @@ function getPspAppsList() {
 
 ```
 
-Code for InAppBrowser
+* Sending message from InAppBrowser
 ```js
 // Sample request format which will need to be written in inappbrowser url.
 // eventtype will be webjs which client end needs to read for function execution
