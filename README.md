@@ -98,7 +98,6 @@ function messCalls(params) {
 
 //Sample code for PSP app list
 pspAppsResponseList = function(apps) {
-    console.log("UPI supported apps" + JSON.stringify(apps));
     // Below code is to send the response back to the InAppBrowser URL.
     browser.executeScript({
           code: "pspAppsResponseList("+JSON.stringify(apps)+")"});
