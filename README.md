@@ -78,6 +78,56 @@ Sample response of failure payment
 }
 ```
 
+
+Code for Payment with InAppBrowser
+```js
+// Code for opening the InAppBrowser. Use below options. URL to be replaced with relevant URL.
+var options = "closebuttoncolor=#000000,lefttoright=yes,hideurlbar=yes,fullscreen=yes,hardwareback=no,toolbarcolor=#145a7b,zoom=no,useWideViewPort=no,hidenavigationbuttons=yes,footer=no,message=Hello,toolbar=no,location=no";
+let browser = cordova.InAppBrowser.open('https://www.google.com/','_blank', options)
+browser.addEventListener('message', messCalls); //Event listener for messages.
+
+function messCalls(params) {
+  if (params.data.eventtype && params.data.eventtype == "webjs") {
+    eval(params.data.type + "()");
+  }
+}
+
+
+//Sample code for PSP app list
+pspAppsResponseList = function(apps) {
+    console.log("UPI supported apps" + JSON.stringify(apps));
+    // Below code is to send the response back to the InAppBrowser URL.
+    browser.executeScript({
+          code: "pspAppsResponseList("+JSON.stringify(apps)+")"});
+}
+
+failureCallback = function(err) {
+    alert("Issue in fetching UPI supported apps " + err);
+}
+
+function getPspAppsList() {
+    window["UPI"].supportedApps(pspAppsResponseList, failureCallback);
+}
+
+```
+
+Code for InAppBrowser
+```js
+// Sample request format which will need to be written in inappbrowser url.
+// eventtype will be webjs which client end needs to read for function execution
+function getPspAppsList() {
+  var messageObj = {eventtype: "webjs", type: "getPspAppsList"};
+  var stringifiedMessageObj = JSON.stringify(messageObj);
+  window.webkit.messageHandlers.cordova_iab.postMessage(stringifiedMessageObj);
+}
+
+//Response to be sent to client in below method.
+function pspAppsResponseList(pspApps) {
+  console.log(pspApps)
+}
+
+```
+
 ### Release Notes:
 # 1.0.0:
  Initial Release of cordova plugin for upi transaction
