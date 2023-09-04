@@ -36,15 +36,12 @@
 
     <!-- ios -->
     <platform name="ios">
-        <plugins-plist key="AppVersion" string="AppVersion" />
-
-        <config-file target="config.xml" parent="/*">
-            <feature name="AppVersion">
-                <param name="ios-package" value="AppVersion" />
+        <config-file parent="/*" target="config.xml">
+            <feature name="UPIPlugin">
+                <param name="ios-package" value="com.cordova.upi.UPIPlugin"/>
             </feature>
         </config-file>
-
-        <header-file src="src/ios/AppVersion.h" />
-        <source-file src="src/ios/AppVersion.m" />
+        <source-file src="src/ios/UPIPlugin.swift"  />
+        <dependency id="cordova-plugin-add-swift-support" version="2.0.2"/>
     </platform>
 </plugin>
