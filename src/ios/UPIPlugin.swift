@@ -7,6 +7,7 @@
 import UIKit
 import Foundation
 
+@objc(UPIPlugin)
 class UPIPlugin: CDVPlugin {    
     let appName: String = "MyJio"
     
