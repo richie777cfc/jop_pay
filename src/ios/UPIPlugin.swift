@@ -8,19 +8,20 @@ import UIKit
 import Foundation
 
 @objc(UPIPlugin)
-class UPIPlugin: CDVPlugin {    
+class UPIPlugin: CDVPlugin {
     let appName: String = "MyJio"
     
     func supportedApps(command: CDVInvokedUrlCommand) {
-        let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAsString: sendPSPAppListDictionary());
-        commandDelegate.sendPluginResult(pluginResult, callbackId:command.callbackId);
+        
+        let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: sendPSPAppListDictionary());
+        commandDelegate.send(pluginResult, callbackId:command.callbackId);
       }
     
     func acceptPayment(command: CDVInvokedUrlCommand) {
-        let upistr = command.arguments[4].upiString as? String ?? ""
-        launchPSPAppOnClick(urlString: upistr)
-        let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAsString: "Initiated");
-        commandDelegate.sendPluginResult(pluginResult, callbackId:command.callbackId);
+        let upistr = command.arguments[0] as? [String:Any]
+        launchPSPAppOnClick(urlString: upistr?["upiString"] as? String ?? "")
+        let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Initiated");
+        commandDelegate.send(pluginResult, callbackId:command.callbackId);
       }
     
     func sendPSPAppListDictionary() -> [Any] {
@@ -109,11 +110,8 @@ class UPIPlugin: CDVPlugin {
                     guard let applicationURL = URL(string: urlString) else {
                         return
                     }
-                    UIApplication.shared.open(applicationURL, options: [:]) { [weak self] (success) in
-                        if success {
-                            // infrom web about psp app launch
-                            self?.delegate?.handleCallBackEventForUPILaunch(eventName: JavaScriptWebCallBack.launchPSPAppForUPIPayment, values: [])
-                        }
+                    UIApplication.shared.open(applicationURL, options: [:]) { (_) in
+                        
                     }
                 }
         }
@@ -122,7 +120,7 @@ class UPIPlugin: CDVPlugin {
 
 extension UIImage {
     func convertImageToBase64() -> String {
-        let imageData = self.pngData()
+        let imageData = UIImagePNGRepresentation(self)
         let base64String = imageData?.base64EncodedString()
         return base64String ?? ""
     }
