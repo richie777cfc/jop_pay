@@ -108,7 +108,6 @@ public class UPIPlugin extends CordovaPlugin {
         } catch (Exception e) {
             return "";
         }
-
     }
 
     private void fetchSupportedApps(final CallbackContext callbackContext) {
