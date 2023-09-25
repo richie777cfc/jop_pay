@@ -11,19 +11,21 @@ import Foundation
 class UPIPlugin: CDVPlugin {
     let appName: String = "MyJio"
     
-    func supportedApps(command: CDVInvokedUrlCommand) {
+    @objc(supportedApps:)
+    func supportedApps(_command: CDVInvokedUrlCommand) {
         
         let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: sendPSPAppListDictionary());
-        commandDelegate.send(pluginResult, callbackId:command.callbackId);
+        commandDelegate.send(pluginResult, callbackId:_command.callbackId);
       }
     
-    func acceptPayment(command: CDVInvokedUrlCommand) {
-        let upistr = command.arguments[0] as? [String:Any]
+    @objc(acceptPayment:)
+    func acceptPayment(_command: CDVInvokedUrlCommand) {
+        let upistr = _command.arguments[0] as? [String:Any]
         launchPSPAppOnClick(urlString: upistr?["upiString"] as? String ?? "")
         let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Initiated");
-        commandDelegate.send(pluginResult, callbackId:command.callbackId);
+        commandDelegate.send(pluginResult, callbackId:_command.callbackId);
       }
-    
+      
     func sendPSPAppListDictionary() -> [Any] {
         // if--> core data check VPAID
         var myArray = [[String: String]]()

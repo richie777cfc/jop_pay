@@ -38,7 +38,7 @@
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
             <feature name="UPIPlugin">
-                <param name="ios-package" value="com.cordova.upi.UPIPlugin"/>
+                <param name="ios-package" value="UPIPlugin"/>
             </feature>
         </config-file>
         <source-file src="src/ios/UPIPlugin.swift"  />
