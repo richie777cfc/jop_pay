@@ -99,7 +99,7 @@ class UPIPlugin: CDVPlugin {
     func launchPSPAppOnClick(urlString: String) {
         let jsonObject = getJsonObjectFromString(urlString: urlString)
         let appIdentifier = jsonObject?["upiString"] as? String
-        let upiPaymentString = (jsonObject?["application"] as? [String: Any])?["appId"] as? String
+        let upiPaymentString = (jsonObject?["application"] as? [String: Any])?["appId"] as? String ?? ""
         print(upiPaymentString as Any)
         if let intentAppContentArray = getFilteredUPIIntentApps(), !intentAppContentArray.isEmpty {
                 let currentAppIntentFilteredArray = intentAppContentArray.filter { ($0["PackageName"] as? String ?? "") == appIdentifier }
