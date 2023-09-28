@@ -97,9 +97,9 @@ class UPIPlugin: CDVPlugin {
     }
     
     func launchPSPAppOnClick(urlString: String) {
-        let urlComponentArray = urlString.components(separatedBy: "|")
-        let appIdentifier = urlComponentArray[0]
-        let upiPaymentString = urlComponentArray[1]
+        let jsonObject = getJsonObjectFromString(urlString: urlString)
+        let appIdentifier = jsonObject?["upiString"] as? String
+        let upiPaymentString = (jsonObject?["application"] as? [String: Any])?["appId"] as? String
         print(upiPaymentString as Any)
         if let intentAppContentArray = getFilteredUPIIntentApps(), !intentAppContentArray.isEmpty {
                 let currentAppIntentFilteredArray = intentAppContentArray.filter { ($0["PackageName"] as? String ?? "") == appIdentifier }
@@ -117,6 +117,15 @@ class UPIPlugin: CDVPlugin {
                     }
                 }
         }
+    }
+    
+    func getJsonObjectFromString(urlString: String) -> [String: Any]? {
+        if let data = urlString.data(using: .utf8) {
+            if let jsonData = try? JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [String: Any] {
+                return jsonData
+            }
+        }
+        return nil
     }
 }
 
